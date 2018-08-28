@@ -1,6 +1,6 @@
 - name: Disable Sellinux
   hosts: all
   tasks:
-- selinux:
-    policy: targeted
-    state: permissive
+    - selinux:
+      policy: targeted
+      state: permissive
