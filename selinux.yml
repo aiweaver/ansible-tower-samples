@@ -2,5 +2,5 @@
   hosts: all
   tasks:
     - selinux:
-      policy: targeted
-      state: permissive
+        policy: targeted
+        state: permissive
