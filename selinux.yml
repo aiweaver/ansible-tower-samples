@@ -3,4 +3,4 @@
   tasks:
     - selinux:
         policy: targeted
-        state: permissive
+        state: disabled
