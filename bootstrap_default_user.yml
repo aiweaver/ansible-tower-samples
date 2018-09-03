@@ -1,0 +1,25 @@
+---
+ - hosts: all
+   # created with:
+   # python -c 'import crypt; print crypt.crypt("This is my Password", "$1$SomeSalt$")'
+   vars:
+     - password: '$1$DoTheImp$qdffXA8/BbdSlICS.2JZu.'
+   gather_facts: no
+   remote_user: root
+   
+   tasks:
+ 
+   - name: Add a new user named sktair
+     user:
+          name=sktair
+          password={{ password }}
+ 
+   - name: Add provision user to the sudoers
+     copy:
+          dest: "/etc/sudoers.d/sktair"
+          content: "sktair  ALL=(ALL)  NOPASSWD: ALL"
+ 
+   - name: Deploy SSH Key
+     authorized_key: user=sktair
+                     key="{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+                     state=present
