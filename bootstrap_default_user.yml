@@ -20,7 +20,7 @@
                         key="{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
                         state=present
   roles:
-    - { role: GROG.authorized-key }
+  - { role: GROG.authorized-key, become: yes }
 
 # Add sudo privileges for pdo user
 - hosts: all
