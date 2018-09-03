@@ -1,25 +1,28 @@
 ---
- - hosts: all
-   # created with:
-   # python -c 'import crypt; print crypt.crypt("This is my Password", "$1$SomeSalt$")'
-   vars:
-     - password: '$1$DoTheImp$qdffXA8/BbdSlICS.2JZu.'
-   gather_facts: no
-   remote_user: root
-   
-   tasks:
- 
-   - name: Add a new user named sktair
-     user:
-          name=sktair
-          password={{ password }}
- 
-   - name: Add provision user to the sudoers
-     copy:
-          dest: "/etc/sudoers.d/sktair"
-          content: "sktair  ALL=(ALL)  NOPASSWD: ALL"
- 
-   - name: Deploy SSH Key
-     authorized_key: user=sktair
-                     key="{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
-                     state=present
+# Add pdo user on remote machines
+- hosts: all
+  tasks:
+  - name: Add remote users
+    user: name=dmig group=sktair
+
+# Generate SSK keys at the localhost for pde user
+- hosts: localhost
+  tasks:
+  - name: Provision local dmig user
+    user: name=dmig generate_ssh_key=yes ssh_key_bits=2048 ssh_key_file=.ssh/id_rsa
+
+# Install public key into remote machine    
+- hosts: all
+  vars:
+    authorized_key_list:
+      - name: dmig
+        authorized_key: user=sktair
+                        key="{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+                        state=present
+  roles:
+    - { role: GROG.authorized-key }
+
+# Add sudo privileges for pdo user
+- hosts: all
+  roles:
+  - { role: GROG.sudo, become: yes }
