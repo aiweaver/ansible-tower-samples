@@ -16,7 +16,7 @@
   vars:
     authorized_key_list:
       - name: dmig
-        authorized_key: user=sktair
+        authorized_key: user=dmig
                         key="{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
                         state=present
   roles:
