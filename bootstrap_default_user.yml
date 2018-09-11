@@ -32,8 +32,8 @@
 
 - hosts: console.aiweaver.net
   ## connection: local
-  gather_facts: no
-  ## remote_user: dmig
+  ## gather_facts: no
+  remote_user: ansible
   become: true
   become_user: dmig
   become_method: su
