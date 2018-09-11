@@ -32,13 +32,13 @@
 
 - hosts: localhost
   connection: local
-  ## remote_user: dmig
-  become: true
-  become_user: dmig
-  become_method: su
+  remote_user: dmig
+  ## become: true
+  ##become_user: dmig
+  ## become_method: su
   tasks:
   - name: Creating pub SSH keys
-    command: ssh-keygen -N '' -f /home/dmig/.ssh/id_rsa
+    command: ssh-keygen -N '' -f ~/.ssh/id_rsa
   
 # Install public key into remote machine    
 - hosts: all
