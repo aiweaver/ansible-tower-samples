@@ -31,8 +31,8 @@
             user: dmig
             state: present
             manage_dir: yes
-            key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
-            # key: "{{ lookup('file', '/home/vivek/.ssh/id_ed25519.pub') }}"                        
+            key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_ed25519.pub') }}"
+            # key: "{{ lookup('file', '/home/dmig/.ssh/id_ed25519.pub') }}"                        
   roles:
   - { role: GROG.authorized-key, become: yes }
 
