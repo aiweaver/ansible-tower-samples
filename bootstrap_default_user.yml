@@ -35,7 +35,7 @@
   ## remote_user: dmig
   become: true
   become_user: dmig
-  ## become_method: su
+  become_method: su
   tasks:
   - name: Creating pub SSH keys
     command: ssh-keygen -N '' -f /home/dmig/.ssh/id_rsa
