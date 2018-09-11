@@ -38,6 +38,12 @@
   become_user: dmig
   become_method: su
   tasks:
+  - name: remove existing ssh_host keys
+    local_action: file dest="~/.ssh/{{ item }}" state=absent
+    with_items:
+      - id_rsa
+      - id_rsa.pub
+
   - name: Creating pub SSH keys
     ## command: ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa
     command : ssh-keygen -q -t rsa -f ~/.ssh/id_rsa -C "" -N ""
