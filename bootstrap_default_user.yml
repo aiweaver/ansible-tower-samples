@@ -31,9 +31,9 @@
       content: "dmig  ALL=(ALL)  NOPASSWD: ALL"
 
 - hosts: localhost
-  ## remote_user: ansible
-  become: true
-  become_user: dmig
+  remote_user: dmig
+  ## become: true
+  ## become_user: dmig
   ## become_method: su
   tasks:
   - name: Creating pub SSH keys
