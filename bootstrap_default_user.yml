@@ -31,9 +31,10 @@
       content: "dmig  ALL=(ALL)  NOPASSWD: ALL"
 
 - hosts: localhost
-  remote_user: dmig
-  ## become: true
-  ## become_user: dmig
+  connection: local
+  ## remote_user: dmig
+  become: true
+  become_user: dmig
   ## become_method: su
   tasks:
   - name: Creating pub SSH keys
