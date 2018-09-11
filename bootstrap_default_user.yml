@@ -30,7 +30,7 @@
       dest: "/etc/sudoers.d/dmig"
       content: "dmig  ALL=(ALL)  NOPASSWD: ALL"
 
-- hosts: localhost
+- hosts: console.aiweaver.net
   ## connection: local
   gather_facts: no
   ## remote_user: dmig
