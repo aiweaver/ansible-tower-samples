@@ -2,8 +2,17 @@
 # Add pdo user on remote machines
 - hosts: all
   tasks:
-  - name: Add remote users
-    user: name=dmig group=sktair
+  - name: Ensure group "sktaic" exists
+      group:
+        name: sktaic
+        state: present
+  - name: Add SKT AIC Default User
+      user:
+        name: dmig
+        groups: wheel,sktaic
+        shell: /bin/bash       # Defaults to /bin/bash
+        system: no             # Defaults to no
+        createhome: yes        # Defaults to yes
 
 # Generate SSK keys at the localhost for pde user
 - hosts: localhost
