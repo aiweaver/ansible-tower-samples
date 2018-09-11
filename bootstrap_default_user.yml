@@ -17,12 +17,20 @@
       system: no             # Defaults to no
       createhome: yes        # Defaults to yes
       append: yes
-      generate_ssh_key: yes
+      generate_ssh_key: no
       ## run command below ##
       ## python -c 'import crypt,getpass; print crypt.crypt(getpass.getpass())' ##
       ## to create your own encrypted password ##
       password: $6$THq.nclQOyxgi21R$19Ds0oSUpo1hFaYasqi7nGlmu1X0egSWjLjSly8Ki/6YyiM9glYUwCA8x/Pqsbcda3tGbFNRfhXu.MOsYC3Py1
-      ssh_key_type: ed25519
+      ## ssh_key_type: ed25519
+
+  - name: Creating pub SSH keys
+    command: ssh-keygen -N '' -f /home/dmig/.ssh/id_rsa
+
+  - name: Add provision user to the sudoers
+    copy:
+      dest: "/etc/sudoers.d/dmig"
+      content: "dmig  ALL=(ALL)  NOPASSWD: ALL"
 
 # Install public key into remote machine    
 - hosts: all
@@ -31,7 +39,7 @@
             user: dmig
             state: present
             manage_dir: yes
-            key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_ed25519.pub') }}"
+            key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
             # key: "{{ lookup('file', '/home/dmig/.ssh/id_ed25519.pub') }}"                        
   roles:
   - { role: GROG.authorized-key, become: yes }
