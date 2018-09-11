@@ -25,6 +25,7 @@
       ## ssh_key_type: ed25519
 
   - name: Add provision user to the sudoers
+    become: yes
     copy:
       dest: "/etc/sudoers.d/dmig"
       content: "dmig  ALL=(ALL)  NOPASSWD: ALL"
