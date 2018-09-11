@@ -2,10 +2,6 @@
 # Add pdo user on remote machines
 - hosts: all
   tasks:
-  - name: Ensure group "sktaic" exists
-      group:
-        name: sktaic
-        state: present
   - name: Add SKT AIC Default User
       user:
         name: dmig
