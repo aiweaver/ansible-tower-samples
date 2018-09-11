@@ -3,14 +3,14 @@
 - hosts: all
   tasks:
   - name: Ensure group "sktaic" exists
+    sudo: true
     group:
       name: sktaic
-      sudo: true
       state: present
   - name: Add SKT AIC Default User
+    sudo: true
     user:
       name: dmig
-      sudo: true
       groups: wheel,sktaic
       shell: /bin/bash       # Defaults to /bin/bash
       system: no             # Defaults to no
