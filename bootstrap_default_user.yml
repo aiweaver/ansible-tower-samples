@@ -24,14 +24,20 @@
       password: $6$THq.nclQOyxgi21R$19Ds0oSUpo1hFaYasqi7nGlmu1X0egSWjLjSly8Ki/6YyiM9glYUwCA8x/Pqsbcda3tGbFNRfhXu.MOsYC3Py1
       ## ssh_key_type: ed25519
 
-  - name: Creating pub SSH keys
-    command: ssh-keygen -N '' -f /home/dmig/.ssh/id_rsa
-
   - name: Add provision user to the sudoers
     copy:
       dest: "/etc/sudoers.d/dmig"
       content: "dmig  ALL=(ALL)  NOPASSWD: ALL"
 
+- hosts: localhost
+  remote_user: ansible
+  become: true
+  become_user: dmig
+  become_method: su
+  tasks:
+  - name: Creating pub SSH keys
+    command: ssh-keygen -N '' -f /home/dmig/.ssh/id_rsa
+  
 # Install public key into remote machine    
 - hosts: all
   vars:
