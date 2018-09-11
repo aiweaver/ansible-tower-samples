@@ -46,7 +46,8 @@
 
   - name: Creating pub SSH keys
     ## command: ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa
-    command : ssh-keygen -q -t rsa -f ~/.ssh/id_rsa -C "" -N ""
+    ## command : ssh-keygen -q -t rsa -f ~/.ssh/id_rsa -C "" -N ""
+    command : ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
     creates: ~/.ssh/id_rsa
     ## become: yes
     ## become_user: dmig
