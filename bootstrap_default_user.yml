@@ -31,18 +31,20 @@
       content: "dmig  ALL=(ALL)  NOPASSWD: ALL"
 
 - hosts: localhost
-  gather_facts: no
   ## connection: local
+  gather_facts: no
   ## remote_user: dmig
-  ## become: true
-  ## become_user: dmig
-  ## become_method: su
+  become: true
+  become_user: dmig
+  become_method: su
   tasks:
   - name: Creating pub SSH keys
-    command: ssh-keygen -N '' -f ~/.ssh/id_rsa
-    become: yes
-    become_user: dmig
-    become_method: su
+    ## command: ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa
+    command : ssh-keygen -q -t rsa -f ~/.ssh/id_rsa -C "" -N ""
+    creates: ~/.ssh/id_rsa
+    ## become: yes
+    ## become_user: dmig
+    ## become_method: su
   
 # Install public key into remote machine    
 - hosts: all
