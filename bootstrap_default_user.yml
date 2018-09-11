@@ -31,10 +31,10 @@
       content: "dmig  ALL=(ALL)  NOPASSWD: ALL"
 
 - hosts: localhost
-  remote_user: ansible
+  ## remote_user: ansible
   become: true
   become_user: dmig
-  become_method: su
+  ## become_method: su
   tasks:
   - name: Creating pub SSH keys
     command: ssh-keygen -N '' -f /home/dmig/.ssh/id_rsa
